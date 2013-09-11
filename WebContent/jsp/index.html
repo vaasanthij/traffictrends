@@ -121,22 +121,16 @@ function getPointsAlongRoute (routes) {
 	//alert(JSON.stringify(response));
     //alert(response.routes.length);
     pathArray.length=0;
-    for (var i=0; i<routes.length; i++) 
-  {
-      var route = routes[i];
-  	  
-  	  for (var j=0; j<route.legs.length; j++) 
-      {
+    for (var i=0; i<routes.length; i++) {
+      var route = routes[i];  
+  	  for (var j=0; j<route.legs.length; j++) {
   		  var steps = route.legs[j].steps;
   		  //prompt("",JSON.stringify(route.legs[j]));
-  		  
-  		  for (var k=0; k<steps.length; k++) 
-          {
-				pathArray.push(steps[k].start_location.pb+":"+steps[k].start_location.qb);
-				
+  		  for (var k=0; k<steps.length; k++) {
+				pathArray.push(steps[k].start_location.pb+":"+steps[k].start_location.qb);		
           }
-      }
-  }
+       }
+     }
     document.getElementById("latlangpath").value = JSON.stringify(pathArray);
 }
 
