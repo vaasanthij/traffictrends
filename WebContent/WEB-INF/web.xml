@@ -8,7 +8,7 @@
     <description></description>
     <display-name>TrafficMapServlet</display-name>
     <servlet-name>TrafficMapServlet</servlet-name>
-    <servlet-class>com.ttumtd.app.TrafficMapServlet</servlet-class>
+    <servlet-class>org.ttumtd.app.TrafficMapServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>TrafficMapServlet</servlet-name>

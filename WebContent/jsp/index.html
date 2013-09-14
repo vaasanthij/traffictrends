@@ -29,7 +29,8 @@ var pathArray = new Array();
 var cnt = 0;
 function initialize() {
     var rendererOptions = {
-         draggable: true
+         draggable: true,
+         suppressMarkers: true
     };
     directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
 
@@ -37,6 +38,10 @@ function initialize() {
   var mapOptions = {
     zoom: 15,
     center: currentLocation,
+    scrollwheel: false,
+    scaleControl: false,
+    zoomControl: false,
+    navigationControl: false;
     mapTypeId: google.maps.MapTypeId.TERRAIN
   };
     map =  new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
@@ -49,9 +54,6 @@ function initialize() {
   poly = new google.maps.Polyline(polyOptions);
   poly.setMap(map);  
   directionsDisplay.setMap(map);
-
-
-
   
   google.maps.event.addListener(map, 'click', function(event) {
     nocities++;
@@ -86,8 +88,17 @@ function populateLatLng (latLng)
 
 function addMarker(location) {
      //alert(location);
+     var icon_img;
+     if (cnt == 1) {
+    	 icon_img='http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=S|FF705F|000000';
+     }
+     else {
+    	 // icon_img='http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=D|9FE09F|000000'
+         icon_img='http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=D|9FE09F|000000';     
+     }
      marker = new google.maps.Marker({
                    position: location,
+                   icon: icon_img,
                    map: map
      });
      var path = poly.getPath();
@@ -192,7 +203,11 @@ function createOptionsForVal (selectObject, fromVal, toVal)
 
 function doSubmit ()
 {
-    return true; 
+	var bounds = map.getBounds();
+	document.getElementById("mapbounds").value = bounds.toString();
+	var mapsize = google.maps.geometry.spherical.computeDistanceBetween(bounds.getNorthEast(), bounds.getSouthWest());
+	document.getElementById("mapsize").value = mapsize;
+	return true; 
 }
 
 
@@ -205,6 +220,8 @@ function doSubmit ()
         <input type="hidden" name="fromLatLng" id="fromLatLng" value="" />
         <input type="hidden" name="toLatLng" id="toLatLng" value="" />
         <input type="hidden" name="latlangpath" id="latlangpath" value="" />
+        <input type="hidden" name="mapbounds" id="mapbounds" value="" />
+        <input type="hidden" name="mapsize" id="mapsize" value="" />
                           
         <table>
             <tr>
