@@ -35,6 +35,14 @@ public class Sector
 		return true;		
 	}
 	
-	public CoordinatesgetBounds
+	public Map<Integer,Coordinate> getBounds ()
+	{
+		return bounds;
+	}
+	
+	public int getId ()
+	{
+		return sectorId;
+	}
 
 }
