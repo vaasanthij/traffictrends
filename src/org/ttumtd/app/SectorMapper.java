@@ -52,6 +52,7 @@ public class SectorMapper
 		Coordinate wCentre = new Coordinate(nw.getLat(), (sw.getLng() - nw.getLng())/2);
 		Coordinate centre = new Coordinate (nCentre.getLat(), eCentre.getLng());
 		int newID = id<<2;
+		// recursively dividing the area into 4 sectors
 		divideAreaByFour(nw, nCentre, wCentre, centre, newID|00);
 		divideAreaByFour(nCentre, ne, centre, eCentre, newID|01);
 		divideAreaByFour(wCentre, centre, sw, sCentre, newID|10);
