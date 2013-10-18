@@ -1,20 +1,33 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    
-    <style type="text/css">
-      html { height: 100%; width: 75%; }
-      body { height: 100%; width: 100%; margin: 10; padding: 0 }
-	 
 
-      #map-canvas { height: 100%;width:85%;float:left }
-    </style>
+<style type="text/css">
+html {
+	height: 100%;
+	width: 75%;
+}
 
-    
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbE4ZuFxcpxe4w7ddJqs3ssNPn2r0cwoA&sensor=false&libraries=places"></script>
-    <script>
+body {
+	height: 100%;
+	width: 100%;
+	margin: 10;
+	padding: 0
+}
+
+#map-canvas {
+	height: 100%;
+	width: 85%;
+	float: left
+}
+</style>
+
+
+<script
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbE4ZuFxcpxe4w7ddJqs3ssNPn2r0cwoA&sensor=false&libraries=places"></script>
+<script>
 
 var map;
 var markersArray = [];
@@ -212,52 +225,64 @@ function doSubmit ()
 
 
 </script>
-  </head>
-  <body>
-    <div id="map-canvas"></div>
-    <div id="form1">
-        <form name="mapform" id="mapform" method="post" action="trafficmap">
-        <input type="hidden" name="fromLatLng" id="fromLatLng" value="" />
-        <input type="hidden" name="toLatLng" id="toLatLng" value="" />
-        <input type="hidden" name="latlangpath" id="latlangpath" value="" />
-        <input type="hidden" name="mapbounds" id="mapbounds" value="" />
-        <input type="hidden" name="mapsize" id="mapsize" value="" />
-                          
-        <table>
-            <tr>
-               <th colspan="9" align="left">Enter Start Date and Time </th>
-            </tr>
-            <tr>
-               <td><select name="fromMonth" id="fromMonth"></select></td><td>/</td>
-               <td><select name="fromDate" id="fromDate"></select></td><td>/</td>
-               <td><select name="fromYear" id="fromYear"></select></td><td>--</td>
-               <td><select name="fromHr" id="fromHr"></select></td><td>:</td>
-               <td><select name="fromMin" id="fromMin"></select></td>  
-            </tr>
-            <tr><td><br/></td></tr>
-            <tr>
-                <th colspan="9" align="left">Enter End Date and Time </th>
-            </tr>
-            <tr>   
-                <td><select name="toMonth" id="toMonth"></select></td><td>/</td>
-                <td><select name="toDate" id="toDate"></select></td><td>/</td>
-                <td><select name="toYear" id="toYear"></select></td><td>--</td>
-                <td><select name="toHr" id="toHr"></select></td><td>:</td>
-                <td><select name="toMin" id="toMin"></select></td>
-             </tr>
-            <tr><td><br/></td></tr>
-            <tr>
-                <td><input type="submit" value="Submit" onClick="doSubmit()"/></td>
-            </tr>
-        </table>
-        </form>
-        <script>
+</head>
+<body>
+	<div id="map-canvas"></div>
+	<div id="form1">
+		<form name="mapform" id="mapform" method="post" action="trafficmap">
+			<input type="hidden" name="fromLatLng" id="fromLatLng" value="" /> <input
+				type="hidden" name="toLatLng" id="toLatLng" value="" /> <input
+				type="hidden" name="latlangpath" id="latlangpath" value="" /> <input
+				type="hidden" name="mapbounds" id="mapbounds" value="" /> <input
+				type="hidden" name="mapsize" id="mapsize" value="" />
+
+			<table>
+				<tr>
+					<th colspan="9" align="left">Enter Start Date and Time</th>
+				</tr>
+				<tr>
+					<td><select name="fromMonth" id="fromMonth"></select></td>
+					<td>/</td>
+					<td><select name="fromDate" id="fromDate"></select></td>
+					<td>/</td>
+					<td><select name="fromYear" id="fromYear"></select></td>
+					<td>--</td>
+					<td><select name="fromHr" id="fromHr"></select></td>
+					<td>:</td>
+					<td><select name="fromMin" id="fromMin"></select></td>
+				</tr>
+				<tr>
+					<td><br /></td>
+				</tr>
+				<tr>
+					<th colspan="9" align="left">Enter End Date and Time</th>
+				</tr>
+				<tr>
+					<td><select name="toMonth" id="toMonth"></select></td>
+					<td>/</td>
+					<td><select name="toDate" id="toDate"></select></td>
+					<td>/</td>
+					<td><select name="toYear" id="toYear"></select></td>
+					<td>--</td>
+					<td><select name="toHr" id="toHr"></select></td>
+					<td>:</td>
+					<td><select name="toMin" id="toMin"></select></td>
+				</tr>
+				<tr>
+					<td><br /></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Submit" onClick="doSubmit()" /></td>
+				</tr>
+			</table>
+		</form>
+		<script>
             populateMonths();
             populateDate();
             populateYear();
             populateHour();
             populateMin();
         </script>
-    </div>
-  </body>
+	</div>
+</body>
 </html>
