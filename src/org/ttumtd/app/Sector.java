@@ -44,5 +44,15 @@ public class Sector
 	{
 		return sectorId;
 	}
+	
+	public boolean distanceFromLine (Coordinate point,
+			                         Coordinate x,
+			                         Coordinate y)
+	{
+		double slope = (x.getLng() - y.getLng())/(x.getLat() - y.getLat());
+		double angle = Math.abs(Math.atan(slope));
+		
+		return false;
+	}
 
 }
