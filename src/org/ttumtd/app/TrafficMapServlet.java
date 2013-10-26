@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -11,8 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
 
 /**
  * Servlet implementation class TrafficMapServlet
@@ -55,36 +54,40 @@ public class TrafficMapServlet extends HttpServlet {
 	        PrintWriter out = response.getWriter();
 	        out.println(sbr.toString());*/
 	        SectorMapper sectorMap = new SectorMapper (request.getParameter("mapbounds"), 
-	    		                         Integer.parseInt(request.getParameter("mapsize")));
+	    		                         Double.parseDouble(request.getParameter("mapsize")));
 	        List<Path> pathsAlongRoute = 
 	        		Path.breakIntoMultiplePaths(request.getParameter("latlangpath"));
 	        Map<Path, Integer> weightedPath = 
-	        		PathUsageCalculator.calculateWeightedPath(pathsAlongRoute, 
+	        		PathUsageCalculator.calculateWeightedPath(pathsAlongRoute,
+	        				                                  sectorMap,
 	        		                                          getTimestamp(request, "to"), 
 	        		                                          getTimestamp(request, "from"));
 	       
-	        response.setContentType("application/json");
+	        // response.setContentType("application/json");
 	        // Get the printwriter object from response to write the required json object to the output stream      
 	        PrintWriter out = response.getWriter();  
-	        out.print(new Gson().toJson(weightedPath));
-	        out.flush();
+	        out.print(new HTMLGenerator().getMapHTML(weightedPath, 
+	        		           sectorMap.getSouthWestBound(), 
+	        		           sectorMap.getNorthEastBound()));
 	     
         } catch (Exception ex) {
 		       ex.printStackTrace ();
 	    }
 	}
 	
+	private static final String[] months = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
+	
     private long getTimestamp (HttpServletRequest request, String datePrefix) {
     	SimpleDateFormat sdf = new SimpleDateFormat("MMM dd kk:mm yyyy");
         
          String month = request.getParameter(datePrefix + "Month");
-         String day = request.getParameter(datePrefix + "Day");
+         String day = request.getParameter(datePrefix + "Date");
          String year = request.getParameter(datePrefix + "Year");
          String hr = request.getParameter(datePrefix + "Hr");
          String min = request.getParameter(datePrefix + "Min");
          Date d;
          try {
-             d = sdf.parse(month + " " + day + " " + hr + ":" + min + " " + year);
+             d = sdf.parse(months[Integer.parseInt(month)] + " " + day + " " + hr + ":" + min + " " + year);
          }
          catch (Exception e) {
              d = null;
@@ -96,5 +99,24 @@ public class TrafficMapServlet extends HttpServlet {
          return 0;
     }
     
+    private String createJson (Map<Path, Integer> weightedPath) 
+    {
+    	StringBuilder sbr = new StringBuilder();
+    	sbr.append("{\"paths\":[");
+    	Iterator<Path> itr = weightedPath.keySet().iterator();
+    	while (itr.hasNext()) {
+    		Path path = itr.next();
+    		sbr.append("{");
+    		sbr.append("\"start\":{\"lat\":" + path.getStart().getLat() + "," + "\"lng\":" + path.getStart().getLng() +"},");
+    		sbr.append("\"end\":{\"lat\":" + path.getEnd().getLat() + "," + "\"lng\":" + path.getEnd().getLng() +"},");
+    		sbr.append("\"weight\":" + weightedPath.get(path));
+    		sbr.append("}");
+    		if (itr.hasNext()) {
+    			sbr.append(",");
+    		}
+    	}
+    	sbr.append("]}");
+    	return sbr.toString();
+    }
 
 }

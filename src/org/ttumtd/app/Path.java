@@ -21,7 +21,7 @@ public class Path
 		return startPoint;
 	}
 	
-	public Coordinate getPoint ()
+	public Coordinate getEnd ()
 	{
 		return endPoint;
 	}
@@ -29,7 +29,8 @@ public class Path
 	public static List<Path> breakIntoMultiplePaths (String latLngPath)
 	{
 		List<Path> paths = new ArrayList<Path>();	
-		String[] pointsAlongTheWay = latLngPath.split(",");
+		String[] pointsAlongTheWay = latLngPath.substring(latLngPath.indexOf("[") + 1,latLngPath.indexOf("]"))
+				                        .split(",");
 		
 		Coordinate startPoint = getPoint(pointsAlongTheWay[0]);
 		Coordinate endPoint;
@@ -45,8 +46,11 @@ public class Path
 	private static Coordinate getPoint (String regex)
 	{
 		Matcher matcher = pointPattern.matcher(regex);
-		double lat = Double.parseDouble(matcher.group(1));
-		double lng = Double.parseDouble(matcher.group(2));
-		return new Coordinate(lat, lng);
+	    if (matcher.matches()) {
+		    double lat = Double.parseDouble(matcher.group(1));
+		    double lng = Double.parseDouble(matcher.group(2));
+		    return new Coordinate(lat, lng);
+	    }
+	    return null;
 	}
 }

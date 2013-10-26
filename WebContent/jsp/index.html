@@ -23,8 +23,7 @@ body {
 	float: left
 }
 </style>
-
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbE4ZuFxcpxe4w7ddJqs3ssNPn2r0cwoA&sensor=false&libraries=places"></script>
 <script>
@@ -80,7 +79,6 @@ function initialize() {
 	    // alert("directions chnaged!" + JSON.stringify(directionsDisplay.directions));
 	    getPointsAlongRoute(directionsDisplay.directions.routes);
 	  });
-
 }
 
 
@@ -157,12 +155,33 @@ function getPointsAlongRoute (routes) {
           }
        }
      }
-    alert(pathArray);
+    // alert(pathArray);
     document.getElementById("latlangpath").value = JSON.stringify(pathArray);
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
+/*  $(document).ready(function() {                           // When the HTML DOM is ready loading, then execute the following function...
+   $('#submit').click(function() {                  // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
+        $.get('trafficmap', function(responseJson) {    // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response JSON...                                                 // Create HTML <ul> element and append it to HTML DOM element with ID "somediv".
+            $.each(responseJson, function(index, path) { 
+            	var pathCoordinates = [
+            	   new google.maps.LatLng(path.start.lat, path.start.lng),
+            	   new google.maps.LatLng(path.end.lat, path.end.lng)];
+
+            	var polylinePath = new google.maps.Polyline({
+            	    path: flightPlanCoordinates,
+            	    geodesic: true,
+            	    strokeColor: '#FF0000',
+            	    strokeOpacity: 1.0,
+           	        strokeWeight: path.weight	
+           	     });
+            	
+            	polylinePath.setMap(map); 
+           });
+      });
+   });
+ }); */
 
 function populateMonths ()
 {

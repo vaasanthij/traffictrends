@@ -10,8 +10,9 @@ public class SectorMapper
 {
     private Map<Integer, Sector> sectors = new HashMap<Integer, Sector>();
     private Pattern boundsPattern = 
-    		Pattern.compile("[(][(](\\d+.\\d+,\\d+.\\d+),"
-    				+ "(\\d+.\\d+,\\d+.\\d+)[)][)]");
+    		Pattern.compile("..([0-9]+.[0-9]+,\\s[0-9]+.[0-9]+).,\\s.([0-9]+.[0-9]+,\\s[0-9]+.[0-9]+)..");
+
+    
     private Coordinate northeast, southwest;
     private double scaleMultiplier, inverseScaleMultiplier;
     private int sectorSide = 200;
@@ -21,8 +22,10 @@ public class SectorMapper
 	        
 	{
 	     Matcher boundsPatternMatch = boundsPattern.matcher(bounds);
-	     southwest = new Coordinate(boundsPatternMatch.group(1), ",");
-	     northeast = new Coordinate(boundsPatternMatch.group(2), ",");
+	     if (boundsPatternMatch.matches()) {
+	         southwest = new Coordinate(boundsPatternMatch.group(1), ", ");
+	         northeast = new Coordinate(boundsPatternMatch.group(2), ", ");
+	     }
 	     double distUnitsBetweenCornerCoodinates = northeast.getDistanceFromPoint(southwest);
 	     scaleMultiplier = distUnitsBetweenCornerCoodinates /span;   
 	     inverseScaleMultiplier = span / distUnitsBetweenCornerCoodinates;
@@ -43,7 +46,7 @@ public class SectorMapper
 			                       Coordinate se,
 			                       int id) 
 	{
-		if ((nw.getDistanceFromPoint(ne) * inverseScaleMultiplier) <= sectorSide) {
+		if ((nw.getDistanceFromPoint(ne)) <= sectorSide) {
 			Sector sector = new Sector(id, nw, ne, se, sw);
 			sectors.put(id, sector);
 			return;
@@ -75,6 +78,16 @@ public class SectorMapper
 	public Sector getSector (int id)
 	{
 		return sectors.get(id);
+	}
+	
+	public Coordinate getSouthWestBound ()
+	{
+		return southwest;
+	}
+	
+	public Coordinate getNorthEastBound ()
+	{
+		return northeast;
 	}
 	
 }

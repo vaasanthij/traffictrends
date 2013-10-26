@@ -12,6 +12,7 @@ public class PathUsageCalculator {
 	}
 	
 	public static Map<Path, Integer> calculateWeightedPath (List<Path> paths,
+			                             SectorMapper sectorMap,
 			                             long startTimestamp,
 			                             long endTimestamp) 
     {
@@ -19,7 +20,7 @@ public class PathUsageCalculator {
 		// for each path query hadoop and get it
 		for (Path path: paths) {
 		    // for now insert and create a dummy weight
-			weightedPath.put(path, (int)(Math.random() % 10));
+			weightedPath.put(path, (int)((Math.random() * 100) % 13));
 		}
 		return weightedPath;
 	}
