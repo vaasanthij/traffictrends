@@ -136,25 +136,28 @@ function calcRoute(rtepath) {
     directionsService.route(request, function(response, status) {
     	if (status == google.maps.DirectionsStatus.OK) {
   	      directionsDisplay.setDirections(response);
+  	      // alert ("2");
 	      getPointsAlongRoute(response.routes); 
     	}
   });
 }
 
 function getPointsAlongRoute (routes) {
-	//alert(JSON.stringify(response));
-    //alert(response.routes.length);
+	// alert(JSON.stringify(response));
+    // alert(response.routes.length);
+    // alert("1"); 
     pathArray.length=0;
     for (var i=0; i<routes.length; i++) {
       var route = routes[i];  
   	  for (var j=0; j<route.legs.length; j++) {
   		  var steps = route.legs[j].steps;
-  		  //prompt("",JSON.stringify(route.legs[j]));
+  		  // prompt("",JSON.stringify(route.legs[j]));
   		  for (var k=0; k<steps.length; k++) {
-				pathArray.push(steps[k].start_location.pb+":"+steps[k].start_location.qb);		
+				pathArray.push(steps[k].start_location.lat()+":"+steps[k].start_location.lng());		
           }
        }
      }
+    alert(pathArray);
     document.getElementById("latlangpath").value = JSON.stringify(pathArray);
 }
 

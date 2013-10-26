@@ -1,6 +1,7 @@
 package org.ttumtd.app;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +27,7 @@ public class SectorMapper
 	     scaleMultiplier = distUnitsBetweenCornerCoodinates /span;   
 	     inverseScaleMultiplier = span / distUnitsBetweenCornerCoodinates;
 	     createSectors();
+	     mapBTSIntoSectors();
 	}
 	
 	private void createSectors ()
@@ -58,8 +60,21 @@ public class SectorMapper
 		divideAreaByFour(centre, eCentre, sCentre, se, newID|11);		
 	}
 	
+	private void mapBTSIntoSectors ()
+	{
+		List<BTStation> allBTSs = BTStation.getAllBTSs();
+		for (BTStation bts: allBTSs) {
+			for (Sector sector: sectors.values()) {
+				if (sector.isBTSinMe(bts.getLoc(), 400)) {
+					sector.addBTS(bts);
+				}
+			}
+		}	
+	}
+	
 	public Sector getSector (int id)
 	{
 		return sectors.get(id);
 	}
+	
 }
