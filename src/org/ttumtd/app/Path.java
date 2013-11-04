@@ -26,7 +26,7 @@ public class Path
 		return endPoint;
 	}
 	
-	public static List<Path> breakIntoMultiplePaths (String latLngPath)
+	public static List<Path> breakIntoMultiplePaths (String latLngPath, Coordinate destination)
 	{
 		List<Path> paths = new ArrayList<Path>();	
 		String[] pointsAlongTheWay = latLngPath.substring(latLngPath.indexOf("[") + 1,latLngPath.indexOf("]"))
@@ -39,6 +39,7 @@ public class Path
 		    paths.add(new Path(startPoint, endPoint));
 		    startPoint = endPoint;
 		}
+		paths.add(new Path(startPoint, destination));
 		return paths;		
 	}
 	

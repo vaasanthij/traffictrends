@@ -7,7 +7,7 @@
 <style type="text/css">
 html {
 	height: 100%;
-	width: 75%;
+	width: 100%;
 }
 
 body {
@@ -18,9 +18,11 @@ body {
 }
 
 #map-canvas {
-	height: 100%;
-	width: 85%;
-	float: left
+	height: 75%;
+	width: 50%;
+	float: left;
+	padding: 30;
+	border:1px solid #000;
 }
 </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -101,11 +103,13 @@ function addMarker(location) {
      //alert(location);
      var icon_img;
      if (cnt == 1) {
-    	 icon_img='http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=S|FF705F|000000';
+    	 // icon_img='http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=S|FF705F|000000';
+    	 icon_img='images/Start.png';
      }
      else {
     	 // icon_img='http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=D|9FE09F|000000'
-         icon_img='http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=D|9FE09F|000000';     
+         // icon_img='http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=D|9FE09F|000000'; 
+    	 icon_img='images/Stop.png';
      }
      marker = new google.maps.Marker({
                    position: location,
@@ -249,8 +253,17 @@ function doSubmit ()
 </script>
 </head>
 <body>
-	<div id="map-canvas"></div>
-	<div id="form1">
+     <div id="header" style="background-color:#FFFFFF;text-align:center;">
+          <h1 style="margin-bottom:5;"><font color="0340CF" face="verdana">Traffic Trend Analyzer</font></h1>
+            <hr size="13" noshade="true">
+     </div>
+     <div id="header" style="background-color:#FFFFFF;text-align:center;">
+     <h1 style="margin-bottom:10;"><font color="6A40FF" face="verdana"></font></h1>
+     </div> 
+     <div id="filler" style="background-color:#FFFFFF;height:200px;width:30px;float:left;"></div>
+	 <div id="map-canvas"></div>
+	 <div id="filler" style="background-color:#FFFFFF;height:200px;width:30px;float:left;"></div>
+	 <div id="form1" style="background-color:#FFFFFF;text-align:center;">
 		<form name="mapform" id="mapform" method="post" action="trafficmap">
 			<input type="hidden" name="fromLatLng" id="fromLatLng" value="" /> <input
 				type="hidden" name="toLatLng" id="toLatLng" value="" /> <input
@@ -260,34 +273,34 @@ function doSubmit ()
 
 			<table>
 				<tr>
-					<th colspan="9" align="left">Enter Start Date and Time</th>
+					<th colspan="9" align="left"><h5 style="margin-bottom:0;"><font face="verdana">Enter Start Date and Time</font></h5></th>
 				</tr>
 				<tr>
 					<td><select name="fromMonth" id="fromMonth"></select></td>
-					<td>/</td>
+					<td><h5><font face="verdana">/</font></h5></td>
 					<td><select name="fromDate" id="fromDate"></select></td>
-					<td>/</td>
+					<td><h5><font face="verdana">/</font></h5></td>
 					<td><select name="fromYear" id="fromYear"></select></td>
-					<td>--</td>
+					<td><h5><font face="verdana">--</font></h5></td>
 					<td><select name="fromHr" id="fromHr"></select></td>
-					<td>:</td>
+					<td><h5><font face="verdana">:</font></h5></td>
 					<td><select name="fromMin" id="fromMin"></select></td>
 				</tr>
 				<tr>
 					<td><br /></td>
 				</tr>
 				<tr>
-					<th colspan="9" align="left">Enter End Date and Time</th>
+					<th colspan="9" align="left"><h5 style="margin-bottom:0;"><font face="verdana">Enter End Date and Time</font></h5></th>
 				</tr>
 				<tr>
 					<td><select name="toMonth" id="toMonth"></select></td>
-					<td>/</td>
+					<td><h5><font face="verdana">/</font></h5></td>
 					<td><select name="toDate" id="toDate"></select></td>
-					<td>/</td>
+					<td><h5><font face="verdana">/</font></h5></td>
 					<td><select name="toYear" id="toYear"></select></td>
-					<td>--</td>
+					<td><h5><font face="verdana">--</font></h5></td>
 					<td><select name="toHr" id="toHr"></select></td>
-					<td>:</td>
+					<td><h5><font face="verdana">:</font></h5></td>
 					<td><select name="toMin" id="toMin"></select></td>
 				</tr>
 				<tr>

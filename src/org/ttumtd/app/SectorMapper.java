@@ -29,6 +29,9 @@ public class SectorMapper
 	     double distUnitsBetweenCornerCoodinates = northeast.getDistanceFromPoint(southwest);
 	     scaleMultiplier = distUnitsBetweenCornerCoodinates /span;   
 	     inverseScaleMultiplier = span / distUnitsBetweenCornerCoodinates;
+    }
+
+    public void createSectorsAndMapBTSs () {
 	     createSectors();
 	     mapBTSIntoSectors();
 	}
@@ -88,6 +91,16 @@ public class SectorMapper
 	public Coordinate getNorthEastBound ()
 	{
 		return northeast;
+	}
+	
+	public Sector getSectorForPoint (Coordinate point)
+	{
+		for (Sector sector: sectors.values()) {
+			if (sector.isPointInMe(point)) {
+				return sector;
+			}
+		}
+		return null;
 	}
 	
 }

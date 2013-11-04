@@ -60,13 +60,13 @@ public class Sector
 	
 	public boolean isBTSinMe (Coordinate btsCentre, int radius)
 	{
-		// there are 3 considerations here
-		// 1. Check if the centre is with the sector - then this sector covers the BTS
+		// There are 3 considerations here
+		// 1. Check if the center is with the sector - then this sector covers the BTS
 		
 		if (isPointInMe(btsCentre)) {
 			return true;
 		}
-		// 2. The distance from any of the verticies to the centre is less than that of
+		// 2. The distance from any of the vertices to the center is less than that of
 		//    the radius of the BTS
 		if (btsCentre.getDistanceFromPoint(bounds.get(north)) <= radius ||
 				btsCentre.getDistanceFromPoint(bounds.get(south)) <= radius ||
@@ -75,9 +75,9 @@ public class Sector
 			return true;
 			
 		}
-		// 3. The distance of the centre to any one of the edges is less than the radius
+		// 3. The distance of the center to any one of the edges is less than the radius
 		//    of the range
-		/* if (distanceFromLine(btsCentre,bounds.get(north), bounds.get(south)) <= radius ||
+		 /*if (distanceFromLine(btsCentre,bounds.get(north), bounds.get(south)) <= radius ||
 				distanceFromLine(btsCentre,bounds.get(north), bounds.get(south)) <= radius ||
 				distanceFromLine(btsCentre,bounds.get(north), bounds.get(south)) <= radius ||
 				distanceFromLine(btsCentre,bounds.get(north), bounds.get(south)) <= radius) {
@@ -90,6 +90,11 @@ public class Sector
 	{
 		allBTSsInMe.add(bts);
 		bts.addSelfToSector(sectorId);
+	}
+	
+	public Set<BTStation> allBTSsInMe ()
+	{
+		return allBTSsInMe;
 	}
 
 }

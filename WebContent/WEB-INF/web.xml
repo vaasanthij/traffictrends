@@ -17,4 +17,8 @@
 		<servlet-name>TrafficMapServlet</servlet-name>
 		<url-pattern>/trafficmap</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 </web-app>

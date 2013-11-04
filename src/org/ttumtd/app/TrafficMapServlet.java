@@ -55,8 +55,13 @@ public class TrafficMapServlet extends HttpServlet {
 	        out.println(sbr.toString());*/
 	        SectorMapper sectorMap = new SectorMapper (request.getParameter("mapbounds"), 
 	    		                         Double.parseDouble(request.getParameter("mapsize")));
+            sectorMap.createSectorsAndMapBTSs();
+	        String destinationCoordinate = request.getParameter("toLatLng");
+	        Coordinate destination = new Coordinate(destinationCoordinate.substring(
+	        		                                       destinationCoordinate.indexOf("(") + 1,
+	        		                                       destinationCoordinate.indexOf(")")), ", ");
 	        List<Path> pathsAlongRoute = 
-	        		Path.breakIntoMultiplePaths(request.getParameter("latlangpath"));
+	        		Path.breakIntoMultiplePaths(request.getParameter("latlangpath"), destination);
 	        Map<Path, Integer> weightedPath = 
 	        		PathUsageCalculator.calculateWeightedPath(pathsAlongRoute,
 	        				                                  sectorMap,

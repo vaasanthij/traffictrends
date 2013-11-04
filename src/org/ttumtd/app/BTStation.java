@@ -10,6 +10,7 @@ public class BTStation
 {
 	private Set<Integer> sectorsIBelongTo = new HashSet<Integer>();
 	private Coordinate myLoc;
+	private String uniqueId;
 	
 	private static  List<BTStation> currentBTSs = new ArrayList<BTStation>();
 	
@@ -58,5 +59,10 @@ public class BTStation
 	
 	public void addSelfToSector (int sectorID) {
 		sectorsIBelongTo.add(sectorID);
+	}
+	
+	public String getUniqueID ()
+	{
+		return uniqueId;
 	}
 }
